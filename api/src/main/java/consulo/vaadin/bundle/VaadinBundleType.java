@@ -16,10 +16,11 @@
 
 package consulo.vaadin.bundle;
 
+import com.intellij.gwt.base.sdk.GwtVersionImpl;
 import com.intellij.gwt.sdk.GwtVersion;
-import com.intellij.gwt.sdk.impl.GwtVersionImpl;
-import com.intellij.openapi.projectRoots.Sdk;
-import consulo.gwt.sdk.GwtSdkBaseType;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.content.bundle.Sdk;
+import consulo.gwt.base.sdk.GwtSdkBaseType;
 import consulo.ui.image.Image;
 import consulo.vaadin.icon.VaadinIconGroup;
 
@@ -33,6 +34,7 @@ import java.util.regex.Pattern;
  * @author VISTALL
  * @since 25-May-16
  */
+@ExtensionImpl
 public class VaadinBundleType extends GwtSdkBaseType
 {
 	private static Pattern ourClientCompilerPattern = Pattern.compile("vaadin-client-compiler-(\\d.\\d.\\d).jar");

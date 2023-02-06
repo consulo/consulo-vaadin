@@ -1,7 +1,8 @@
-package consulo.vaadin.maven;
+package consulo.vaadin.maven.impl;
 
-import com.intellij.openapi.module.Module;
+import consulo.annotation.component.ExtensionImpl;
 import consulo.maven.importing.MavenImporterFromBuildPlugin;
+import consulo.module.Module;
 import consulo.vaadin.module.extension.JavaEEVaadinModuleExtension;
 import org.jetbrains.idea.maven.importing.MavenModifiableModelsProvider;
 import org.jetbrains.idea.maven.importing.MavenRootModelAdapter;
@@ -17,6 +18,7 @@ import java.util.Map;
  * @author VISTALL
  * @since 11-Jun-22
  */
+@ExtensionImpl
 public class ConsuloInternalVaadinImporter extends MavenImporterFromBuildPlugin
 {
 	public ConsuloInternalVaadinImporter()

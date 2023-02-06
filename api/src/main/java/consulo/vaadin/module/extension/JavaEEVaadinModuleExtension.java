@@ -16,21 +16,20 @@
 
 package consulo.vaadin.module.extension;
 
+import com.intellij.gwt.module.model.GwtModule;
+import consulo.compiler.FileProcessingCompiler;
+import consulo.content.bundle.SdkType;
+import consulo.gwt.base.module.extension.impl.GoogleGwtModuleExtensionImpl;
+import consulo.language.content.LanguageContentFolderScopes;
+import consulo.module.content.layer.ContentFolder;
+import consulo.module.content.layer.ModuleRootLayer;
+import consulo.vaadin.bundle.VaadinBundleType;
+import consulo.virtualFileSystem.VirtualFile;
+
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.annotation.Nonnull;
-
-import com.intellij.gwt.module.model.GwtModule;
-import com.intellij.openapi.compiler.FileProcessingCompiler;
-import com.intellij.openapi.projectRoots.SdkType;
-import com.intellij.openapi.roots.ContentFolder;
-import com.intellij.openapi.vfs.VirtualFile;
-import consulo.gwt.module.extension.impl.GoogleGwtModuleExtensionImpl;
-import consulo.roots.ContentFolderScopes;
-import consulo.roots.ModuleRootLayer;
-import consulo.vaadin.bundle.VaadinBundleType;
 
 /**
  * @author VISTALL
@@ -49,7 +48,7 @@ public class JavaEEVaadinModuleExtension extends GoogleGwtModuleExtensionImpl<Ja
 	@Override
 	public void addFilesForCompilation(GwtModule gwtModule, List<FileProcessingCompiler.ProcessingItem> result)
 	{
-		ContentFolder[] contentFolders = getModuleRootLayer().getContentFolders(ContentFolderScopes.productionAndTest());
+		ContentFolder[] contentFolders = getModuleRootLayer().getContentFolders(LanguageContentFolderScopes.productionAndTest());
 		for(ContentFolder contentFolder : contentFolders)
 		{
 			VirtualFile file = contentFolder.getFile();

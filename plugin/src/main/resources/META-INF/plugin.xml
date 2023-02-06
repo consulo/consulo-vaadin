@@ -24,9 +24,7 @@
 		<tag>web.framework</tag>
 	</tags>
 
-	<extensions defaultExtensionNs="org.jetbrains.idea.maven">
-		<importer implementation="consulo.vaadin.maven.ConsuloInternalVaadinImporter"/>
-	</extensions>
+
 
 	<extensions defaultExtensionNs="com.intellij">
 		<moduleExtensionProvider key="javaee-vaadin"
@@ -36,8 +34,6 @@
 								 immutableClass="consulo.vaadin.module.extension.JavaEEVaadinModuleExtension"
 								 mutableClass="consulo.vaadin.module.extension.JavaEEVaadinMutableModuleExtension" />
 
-		<sdkType implementation="consulo.vaadin.bundle.VaadinBundleType" />
 
-		<implicitUsageProvider implementation="consulo.vaadin.psi.VaadinImplicitUsageProvider"/>
 	</extensions>
 </consulo-plugin>

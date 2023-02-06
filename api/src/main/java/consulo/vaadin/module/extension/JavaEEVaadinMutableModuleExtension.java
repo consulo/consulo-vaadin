@@ -16,25 +16,25 @@
 
 package consulo.vaadin.module.extension;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.swing.*;
-
-import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.ui.VerticalFlowLayout;
-import com.intellij.openapi.util.Comparing;
+import consulo.content.bundle.Sdk;
 import consulo.disposer.Disposable;
-import consulo.extension.ui.ModuleExtensionSdkBoxBuilder;
+import consulo.gwt.base.module.extension.GwtModuleExtensionPanel;
 import consulo.gwt.module.extension.GoogleGwtMutableModuleExtension;
-import consulo.gwt.module.extension.GwtModuleExtensionPanel;
 import consulo.gwt.module.extension.path.GwtLibraryPathProvider;
+import consulo.module.content.layer.ModuleRootLayer;
 import consulo.module.extension.MutableModuleInheritableNamedPointer;
 import consulo.module.extension.swing.SwingMutableModuleExtension;
-import consulo.roots.ModuleRootLayer;
+import consulo.module.ui.extension.ModuleExtensionSdkBoxBuilder;
 import consulo.ui.Component;
 import consulo.ui.Label;
 import consulo.ui.annotation.RequiredUIAccess;
+import consulo.ui.ex.awt.VerticalFlowLayout;
 import consulo.ui.layout.VerticalLayout;
+import consulo.util.lang.Comparing;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.swing.*;
 
 /**
  * @author VISTALL
@@ -69,7 +69,7 @@ public class JavaEEVaadinMutableModuleExtension extends JavaEEVaadinModuleExtens
 	public JComponent createConfigurablePanel(@Nonnull Disposable disposable, @Nonnull Runnable runnable)
 	{
 		JPanel panel = new JPanel(new VerticalFlowLayout(true, false));
-		if(GwtLibraryPathProvider.EP_NAME.composite().canChooseBundle(getModuleRootLayer()))
+		if(GwtLibraryPathProvider.EP_NAME.computeSafeIfAny(it -> it.canChooseBundle(getModuleRootLayer())) != null)
 		{
 			panel.add(ModuleExtensionSdkBoxBuilder.createAndDefine(this, runnable).build());
 		}

@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-package consulo.vaadin.psi;
+package consulo.vaadin.impl.psi;
 
-import com.intellij.codeInsight.AnnotationUtil;
-import com.intellij.codeInsight.daemon.ImplicitUsageProvider;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiElement;
+import com.intellij.java.language.codeInsight.AnnotationUtil;
+import com.intellij.java.language.psi.PsiClass;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.ImplicitUsageProvider;
+import consulo.language.psi.PsiElement;
 
 /**
  * @author VISTALL
  * @since 08-Oct-17
  */
+@ExtensionImpl
 public class VaadinImplicitUsageProvider implements ImplicitUsageProvider
 {
 	public static final String COM_VAADIN_SHARED_UI_CONNECT = "com.vaadin.shared.ui.Connect";
