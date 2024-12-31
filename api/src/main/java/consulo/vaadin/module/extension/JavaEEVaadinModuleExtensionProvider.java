@@ -9,8 +9,8 @@ import consulo.module.extension.MutableModuleExtension;
 import consulo.ui.image.Image;
 import consulo.vaadin.icon.VaadinIconGroup;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * @author VISTALL

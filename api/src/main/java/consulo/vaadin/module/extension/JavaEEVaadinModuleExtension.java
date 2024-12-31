@@ -26,7 +26,7 @@ import consulo.module.content.layer.ModuleRootLayer;
 import consulo.vaadin.bundle.VaadinBundleType;
 import consulo.virtualFileSystem.VirtualFile;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

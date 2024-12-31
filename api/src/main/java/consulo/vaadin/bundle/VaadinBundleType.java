@@ -24,8 +24,8 @@ import consulo.gwt.base.sdk.GwtSdkBaseType;
 import consulo.ui.image.Image;
 import consulo.vaadin.icon.VaadinIconGroup;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
