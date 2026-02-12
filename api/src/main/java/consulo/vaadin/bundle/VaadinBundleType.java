@@ -21,11 +21,11 @@ import com.intellij.gwt.sdk.GwtVersion;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.content.bundle.Sdk;
 import consulo.gwt.base.sdk.GwtSdkBaseType;
-import consulo.ui.image.Image;
+import consulo.localize.LocalizeValue;
 import consulo.vaadin.icon.VaadinIconGroup;
-
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+
 import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,90 +35,63 @@ import java.util.regex.Pattern;
  * @since 25-May-16
  */
 @ExtensionImpl
-public class VaadinBundleType extends GwtSdkBaseType
-{
-	private static Pattern ourClientCompilerPattern = Pattern.compile("vaadin-client-compiler-(\\d.\\d.\\d).jar");
-	private static Pattern ourClientPattern = Pattern.compile("vaadin-client-(\\d.\\d.\\d).jar");
+public class VaadinBundleType extends GwtSdkBaseType {
+    private static Pattern ourClientCompilerPattern = Pattern.compile("vaadin-client-compiler-(\\d.\\d.\\d).jar");
+    private static Pattern ourClientPattern = Pattern.compile("vaadin-client-(\\d.\\d.\\d).jar");
 
-	public VaadinBundleType()
-	{
-		super("VAADIN_BUNDLE");
-	}
+    public VaadinBundleType() {
+        super("VAADIN_BUNDLE", LocalizeValue.localizeTODO("Vaadin"), VaadinIconGroup.vaadin());
+    }
 
-	@Nonnull
-	@Override
-	public GwtVersion getVersion(Sdk sdk)
-	{
-		return GwtVersionImpl.VERSION_1_6_OR_LATER;
-	}
+    @Nonnull
+    @Override
+    public GwtVersion getVersion(Sdk sdk) {
+        return GwtVersionImpl.VERSION_1_6_OR_LATER;
+    }
 
-	@Override
-	public boolean isValidSdkHome(String sdkHome)
-	{
-		return findFileByPattern(sdkHome, ourClientCompilerPattern) != null;
-	}
+    @Override
+    public boolean isValidSdkHome(String sdkHome) {
+        return findFileByPattern(sdkHome, ourClientCompilerPattern) != null;
+    }
 
-	@Nullable
-	@Override
-	public String getVersionString(String sdkHome)
-	{
-		File file = new File(sdkHome);
-		for(File child : file.listFiles())
-		{
-			Matcher matcher = ourClientCompilerPattern.matcher(child.getName());
-			if(matcher.matches())
-			{
-				return matcher.group(1);
-			}
-		}
-		return null;
-	}
+    @Nullable
+    @Override
+    public String getVersionString(String sdkHome) {
+        File file = new File(sdkHome);
+        for (File child : file.listFiles()) {
+            Matcher matcher = ourClientCompilerPattern.matcher(child.getName());
+            if (matcher.matches()) {
+                return matcher.group(1);
+            }
+        }
+        return null;
+    }
 
-	@Override
-	public String suggestSdkName(String currentSdkName, String sdkHome)
-	{
-		return getPresentableName() + " " + getVersionString(sdkHome);
-	}
+    @Override
+    public String suggestSdkName(String currentSdkName, String sdkHome) {
+        return getDisplayName().get() + " " + getVersionString(sdkHome);
+    }
 
-	@Nonnull
-	@Override
-	public String getPresentableName()
-	{
-		return "Vaadin";
-	}
+    @Nullable
+    @Override
+    public String getDevJarPath(Sdk sdk) {
+        return findFileByPattern(sdk.getHomePath(), ourClientCompilerPattern);
+    }
 
-	@Nullable
-	@Override
-	public Image getIcon()
-	{
-		return VaadinIconGroup.vaadin();
-	}
+    @Nullable
+    @Override
+    public String getUserJarPath(Sdk sdk) {
+        return findFileByPattern(sdk.getHomePath(), ourClientPattern);
+    }
 
-	@Nullable
-	@Override
-	public String getDevJarPath(Sdk sdk)
-	{
-		return findFileByPattern(sdk.getHomePath(), ourClientCompilerPattern);
-	}
-
-	@Nullable
-	@Override
-	public String getUserJarPath(Sdk sdk)
-	{
-		return findFileByPattern(sdk.getHomePath(), ourClientPattern);
-	}
-
-	@Nullable
-	private static String findFileByPattern(String sdkHome, Pattern pattern)
-	{
-		File file = new File(sdkHome);
-		for(File child : file.listFiles())
-		{
-			if(pattern.matcher(child.getName()).matches())
-			{
-				return child.getPath();
-			}
-		}
-		return null;
-	}
+    @Nullable
+    private static String findFileByPattern(String sdkHome, Pattern pattern) {
+        File file = new File(sdkHome);
+        for (File child : file.listFiles()) {
+            if (pattern.matcher(child.getName()).matches()) {
+                return child.getPath();
+            }
+        }
+        return null;
+    }
 }
