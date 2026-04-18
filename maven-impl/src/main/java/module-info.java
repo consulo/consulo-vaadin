@@ -4,6 +4,8 @@
  */
 module consulo.vaadin.maven.impl
 {
+	requires consulo.module.api;
+
 	requires consulo.vaadin.api;
 	requires org.jetbrains.idea.maven;
 }
