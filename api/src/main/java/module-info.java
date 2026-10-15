@@ -17,14 +17,10 @@ module consulo.vaadin.api
 	requires consulo.module.content.api;
 	requires consulo.module.ui.api;
 	requires consulo.ui.api;
-	requires consulo.ui.ex.awt.api;
 	requires consulo.util.lang;
 	requires consulo.virtual.file.system.api;
 
 	exports consulo.vaadin.bundle;
 	exports consulo.vaadin.icon;
 	exports consulo.vaadin.module.extension;
-
-	// TODO remove in future
-	requires java.desktop;
 }

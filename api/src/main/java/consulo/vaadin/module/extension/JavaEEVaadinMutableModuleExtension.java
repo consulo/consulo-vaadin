@@ -20,80 +20,49 @@ import consulo.content.bundle.Sdk;
 import consulo.disposer.Disposable;
 import consulo.gwt.base.module.extension.GwtModuleExtensionPanel;
 import consulo.gwt.module.extension.GoogleGwtMutableModuleExtension;
-import consulo.gwt.module.extension.path.GwtLibraryPathProvider;
 import consulo.module.content.layer.ModuleRootLayer;
 import consulo.module.extension.MutableModuleInheritableNamedPointer;
-import consulo.module.extension.swing.SwingMutableModuleExtension;
-import consulo.module.ui.extension.ModuleExtensionSdkBoxBuilder;
 import consulo.ui.Component;
-import consulo.ui.Label;
 import consulo.ui.annotation.RequiredUIAccess;
-import consulo.ui.ex.awt.VerticalFlowLayout;
-import consulo.ui.layout.VerticalLayout;
 import consulo.util.lang.Comparing;
-
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
-import javax.swing.*;
 
 /**
  * @author VISTALL
  * @since 25-May-16
  */
-public class JavaEEVaadinMutableModuleExtension extends JavaEEVaadinModuleExtension implements GoogleGwtMutableModuleExtension<JavaEEVaadinModuleExtension>, SwingMutableModuleExtension
-{
-	public JavaEEVaadinMutableModuleExtension(@Nonnull String id, @Nonnull ModuleRootLayer rootModel)
-	{
-		super(id, rootModel);
-	}
+public class JavaEEVaadinMutableModuleExtension extends JavaEEVaadinModuleExtension implements GoogleGwtMutableModuleExtension<JavaEEVaadinModuleExtension> {
+    public JavaEEVaadinMutableModuleExtension(@Nonnull String id, @Nonnull ModuleRootLayer rootModel) {
+        super(id, rootModel);
+    }
 
-	@Nonnull
-	@Override
-	public MutableModuleInheritableNamedPointer<Sdk> getInheritableSdk()
-	{
-		return (MutableModuleInheritableNamedPointer<Sdk>) super.getInheritableSdk();
-	}
+    @Nonnull
+    @Override
+    public MutableModuleInheritableNamedPointer<Sdk> getInheritableSdk() {
+        return (MutableModuleInheritableNamedPointer<Sdk>) super.getInheritableSdk();
+    }
 
+    @RequiredUIAccess
+    @Nullable
+    @Override
+    public Component createConfigurationComponent(@Nonnull Disposable disposable, @Nonnull Runnable runnable) {
+        return GwtModuleExtensionPanel.create(this, getModuleRootLayer(), disposable, runnable);
+    }
 
-	@RequiredUIAccess
-	@Nullable
-	@Override
-	public Component createConfigurationComponent(@Nonnull Disposable disposable, @Nonnull Runnable runnable)
-	{
-		return VerticalLayout.create().add(Label.create("Unsupported platform"));
-	}
+    @Override
+    public void setEnabled(boolean b) {
+        myIsEnabled = b;
+    }
 
-	@RequiredUIAccess
-	@Nullable
-	@Override
-	public JComponent createConfigurablePanel(@Nonnull Disposable disposable, @Nonnull Runnable runnable)
-	{
-		JPanel panel = new JPanel(new VerticalFlowLayout(true, false));
-		if(GwtLibraryPathProvider.EP_NAME.computeSafeIfAny(it -> it.canChooseBundle(getModuleRootLayer())) != null)
-		{
-			panel.add(ModuleExtensionSdkBoxBuilder.createAndDefine(this, runnable).build());
-		}
-		panel.add(new GwtModuleExtensionPanel(this));
-		return panel;
-	}
-
-	@Override
-	public void setEnabled(boolean b)
-	{
-		myIsEnabled = b;
-	}
-
-	@Override
-	public boolean isModified(@Nonnull JavaEEVaadinModuleExtension originExtension)
-	{
-		if(isModifiedImpl(originExtension))
-		{
-			return true;
-		}
-		if(!Comparing.equal(myPackagingPaths, originExtension.myPackagingPaths))
-		{
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public boolean isModified(@Nonnull JavaEEVaadinModuleExtension originExtension) {
+        if (isModifiedImpl(originExtension)) {
+            return true;
+        }
+        if (!Comparing.equal(myPackagingPaths, originExtension.myPackagingPaths)) {
+            return true;
+        }
+        return false;
+    }
 }
